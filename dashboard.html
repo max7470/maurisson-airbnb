@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!-- Chez Maurisson — Dashboard Live
+     Source de données : Google Apps Script (Code.gs)
+     Ce fichier est le template HTML utilisé par buildHTML() dans Code.gs
+     Il peut aussi être ouvert directement pour prévisualiser la mise en page -->
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chez Maurisson — Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Segoe UI",sans-serif;background:#08081a;color:#e0e0f0;min-height:100vh}
+.hdr{background:linear-gradient(180deg,#0f0f28,#08081a);border-bottom:1px solid rgba(255,255,255,.04);padding:20px 24px 0}
+h1{font-size:22px;font-weight:700;background:linear-gradient(135deg,#e0e0ff,#8888cc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:11px;color:#555;margin-top:2px}
+.sync{font-size:9px;padding:3px 9px;border-radius:20px;background:rgba(59,130,246,.12);color:#60a5fa;border:1px solid rgba(59,130,246,.25)}
+.tabs{display:flex;gap:3px;margin-top:14px}
+.tab{font-size:11px;padding:6px 13px;border-radius:6px 6px 0 0;background:transparent;color:#555;border:1px solid transparent;border-bottom:none;cursor:pointer;font-family:inherit}
+.on{background:rgba(255,255,255,.04)!important;color:#c0c0e0!important;border-color:rgba(255,255,255,.06)!important;font-weight:600!important}
+.ct{padding:18px 24px;max-width:1400px;margin:0 auto}
+.kpis{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.kpi{background:linear-gradient(135deg,#0f0f23,#141430);border:1px solid rgba(255,255,255,.04);border-radius:11px;padding:16px 14px;flex:1 1 140px}
+.kl{font-size:9px;color:#666;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.kv{font-size:24px;font-weight:700;color:#ededff}
+.ks{font-size:9px;color:#555;margin-top:3px}
+.leg{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:10px}
+.leg span{display:flex;align-items:center;gap:4px;font-size:9px;color:#666}
+.dot{width:8px;height:8px;border-radius:2px;display:inline-block}
+.cg{display:flex;flex-wrap:wrap;gap:16px}
+.cm2{flex:1 1 250px;min-width:238px;max-width:320px}
+.mt2{text-align:center;font-size:13px;font-weight:600;color:#a0a0c8;margin-bottom:5px}
+.mg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.dh{text-align:center;font-size:8px;color:#444}
+.dy{position:relative;text-align:center;font-size:11px;padding:5px 1px 13px;border-radius:5px;cursor:pointer}
+.pr2{position:absolute;bottom:1px;left:0;right:0;font-size:7px;font-weight:700}
+.bb{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:14px;height:3px;border-radius:2px;background:#3b82f6}
+.hid{display:none}
+.pan{background:linear-gradient(135deg,#0f0f23,#141430);border:1px solid rgba(255,255,255,.04);border-radius:11px;padding:20px;overflow-x:auto;margin-bottom:16px}
+.pt2{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;padding:6px 10px;color:#555;font-size:9px;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.06)}
+td{padding:8px 10px;color:#999;border-bottom:1px solid rgba(255,255,255,.03)}
+.tn{color:#d0d0e8;font-weight:600}
+.tr2{color:#60a5fa;font-weight:600}
+.sc{background:rgba(34,197,94,.1);color:#22c55e;font-size:10px;padding:2px 7px;border-radius:16px}
+.sp2{background:rgba(100,100,150,.1);color:#8888aa;font-size:10px;padding:2px 7px;border-radius:16px}
+.mb{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:999}
+.md{background:#12122a;border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:26px;min-width:300px;max-width:380px}
+.md input{width:100%;padding:10px;background:#1a1a35;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;font-size:18px;text-align:center;margin:12px 0}
+.btn{padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600}
+.bp{background:#3b82f6;color:#fff}
+.bs{background:transparent;color:#666;border:1px solid rgba(255,255,255,.1)}
+.ftr{text-align:center;padding:24px 0 12px;font-size:9px;color:#333}
+.alert{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:#60a5fa}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div>
+      <div style="font-size:9px;color:#444;letter-spacing:.15em;margin-bottom:3px">AIRBNB DASHBOARD</div>
+      <h1>Chez Maurisson</h1>
+      <div class="sub">Herve, Belgique · ★ 4.9 · Superhôte · 48 avis · <a href="https://airbnb.be/h/maurisson" style="color:#60a5fa;text-decoration:none">Voir l'annonce</a></div>
+    </div>
+    <span class="sync" id="sync-badge">● LIVE</span>
+  </div>
+  <div class="tabs">
+    <button class="tab on" onclick="sv('cal',this)">◫ Calendrier</button>
+    <button class="tab" onclick="sv('resa',this)">☰ Réservations</button>
+    <button class="tab" onclick="sv('stats',this)">◈ Stats</button>
+  </div>
+</div>
+
+<div class="ct">
+  <div id="alert-bar" class="alert hid"></div>
+  <div class="kpis" id="kpis"></div>
+  <div id="vcal"></div>
+  <div id="vresa" class="hid"></div>
+  <div id="vstats" class="hid"></div>
+</div>
+
+<div id="mdbg" class="mb hid" onclick="cm()">
+  <div class="md" onclick="event.stopPropagation()" id="mdc"></div>
+</div>
+
+<div class="ftr">
+  Chez Maurisson · Dashboard Live · Google Sheets · 
+  <a href="https://github.com/max7470/maurisson-airbnb" style="color:#444;text-decoration:none">GitHub</a>
+</div>
+
+<script>
+// === DONNÉES INJECTÉES PAR Code.gs via buildHTML() ===
+// En mode standalone (preview GitHub), des données de demo sont utilisées
+var T = window.T || {}, R = window.R || [], RES = window.RES || {};
+var DEMO_MODE = Object.keys(T).length === 0;
+
+if (DEMO_MODE) {
+  document.getElementById('alert-bar').textContent = 'Mode preview — données non connectées. Ouvrir via Google Apps Script pour les données live.';
+  document.getElementById('alert-bar').classList.remove('hid');
+  document.getElementById('sync-badge').textContent = '○ DEMO';
+}
+
+function tc(p){if(!p)return{bg:'#111122',fg:'#555577'};if(p<=49)return{bg:'#0a2a15',fg:'#34d399'};if(p<=60)return{bg:'#0f1a33',fg:'#60a5fa'};if(p<=75)return{bg:'#2a1a00',fg:'#fbbf24'};if(p<=100)return{bg:'#2a0a0a',fg:'#f87171'};return{bg:'#2a0a2a',fg:'#c084fc'};}
+
+var tr=R.reduce(function(s,r){return s+(r.revenus||0);},0);
+var tn=R.reduce(function(s,r){return s+(r.nuits||0);},0);
+var up=R.filter(function(r){return new Date(r.arrivee)>=new Date(new Date().setHours(0,0,0,0));});
+
+document.getElementById('kpis').innerHTML=[
+  {i:'€',l:'Revenus',v:Math.round(tr)+'€',s:R.length+' résas'},
+  {i:'☾',l:'Nuits',v:Math.round(tn)||'-',s:tn?'Moy '+Math.round(tr/tn)+'€/n':''},
+  {i:'→',l:'À venir',v:up.length,s:'confirmées'},
+  {i:'★',l:'Note',v:'4.9',s:'Superhôte'}
+].map(function(k){
+  return '<div class="kpi"><div class="kl">'+k.i+' '+k.l+'</div><div class="kv">'+k.v+'</div><div class="ks">'+k.s+'</div></div>';
+}).join('');
+
+// Calendrier
+var MF=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+var now=new Date();
+var ch='<div class="leg">';
+[{l:'≤49€',c:'#34d399'},{l:'50-60€',c:'#60a5fa'},{l:'61-75€',c:'#fbbf24'},{l:'76-100€',c:'#f87171'},{l:'>100€',c:'#c084fc'}].forEach(function(x){
+  ch+='<span><span class="dot" style="background:'+x.c+'"></span>'+x.l+'</span>';
+});
+ch+='<span><span style="width:12px;height:3px;border-radius:2px;background:#3b82f6;display:inline-block"></span> Réservé</span></div><div class="cg">';
+
+var mos=[];
+for(var mi=9;mi<=11;mi++) mos.push({y:2025,m:mi});
+for(var mi2=0;mi2<=8;mi2++) mos.push({y:2026,m:mi2});
+
+mos.forEach(function(o){
+  var y=o.y,m=o.m,days=new Date(y,m+1,0).getDate(),off=(new Date(y,m,1).getDay()+6)%7;
+  ch+='<div class="cm2"><div class="mt2">'+MF[m]+' '+y+'</div><div class="mg">';
+  ['L','M','M','J','V','S','D'].forEach(function(d){ch+='<div class="dh">'+d+'</div>';});
+  for(var i=0;i<off;i++) ch+='<div></div>';
+  for(var d=1;d<=days;d++){
+    var iso=y+'-'+('0'+(m+1)).slice(-2)+'-'+('0'+d).slice(-2);
+    var p=T[iso],v=RES[iso];
+    var dt=new Date(y,m,d),isT=dt.toDateString()===now.toDateString();
+    var past=dt<new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    var c=v?{bg:'#0d1f3c',fg:'#3b82f6'}:tc(p);
+    var brd=isT?'2px solid #ff6b35':'1px solid '+(v?'rgba(59,130,246,.25)':'rgba(255,255,255,.04)');
+    ch+='<div class="dy" style="background:'+c.bg+';border:'+brd+';opacity:'+(past&&!v?'0.4':'1')+'" onclick="sd(''+iso+'','+(p||0)+',''+(v||'').replace(/'/g,'')+'')">'+d;
+    if(p&&!v) ch+='<div class="pr2" style="color:'+c.fg+'">'+p+'€</div>';
+    if(v) ch+='<div class="bb"></div>';
+    ch+='</div>';
+  }
+  ch+='</div></div>';
+});
+ch+='</div>';
+document.getElementById('vcal').innerHTML=ch;
+
+// Réservations
+var upR=R.filter(function(r){return new Date(r.arrivee)>=new Date(new Date().setHours(0,0,0,0));}).sort(function(a,b){return new Date(a.arrivee)-new Date(b.arrivee);});
+var paR=R.filter(function(r){return new Date(r.arrivee)<new Date(new Date().setHours(0,0,0,0));}).sort(function(a,b){return new Date(b.arrivee)-new Date(a.arrivee);});
+
+function mkT(list,title){
+  var h='<div class="pan"><div class="pt2">'+title+' ('+list.length+')</div><table><tr><th>Voyageur</th><th>Arrivée</th><th>Départ</th><th>Nuits</th><th>Revenus</th><th>Statut</th></tr>';
+  list.forEach(function(r){
+    var past=new Date(r.arrivee)<new Date();
+    h+='<tr><td class="tn">'+r.voyageur+'</td><td>'+r.arrivee+'</td><td>'+r.depart+'</td><td style="text-align:center">'+r.nuits+'</td><td class="tr2">'+(r.revenus?r.revenus.toFixed(2)+'€':'-')+'</td><td><span class="'+(past?'sp2':'sc')+'">'+(past?'Passée':'Confirmée')+'</span></td></tr>';
+  });
+  return h+'</table></div>';
+}
+document.getElementById('vresa').innerHTML=mkT(upR,'À venir')+mkT(paR,'Historique');
+
+// Stats
+var mR={};
+R.forEach(function(r){var k=r.arrivee.substring(0,7);mR[k]=(mR[k]||0)+(r.revenus||0);});
+var mA=Object.entries(mR).sort(function(a,b){return a[0].localeCompare(b[0]);});
+var mx=mA.length?Math.max.apply(null,mA.map(function(x){return x[1];})):1;
+var sh='<div class="pan"><div class="pt2">Revenus mensuels</div><div style="display:flex;align-items:flex-end;gap:3px;height:140px">';
+mA.forEach(function(e){
+  var k=e[0],rev=e[1],pts=k.split('-'),y2=pts[0],m2=pts[1];
+  var h=Math.round((rev/mx)*120),fut=new Date(y2+'-'+m2+'-01')>now;
+  sh+='<div style="flex:1;text-align:center"><div style="font-size:7px;color:#777;margin-bottom:3px">'+Math.round(rev)+'</div><div style="height:'+h+'px;border-radius:3px 3px 0 0;background:'+(fut?'rgba(59,130,246,.15)':'linear-gradient(to top,#3b82f6,#60a5fa)')+';border:'+(fut?'1px dashed rgba(59,130,246,.3)':'none')+'"></div><div style="font-size:7px;color:#555;margin-top:3px">'+['J','F','M','A','M','J','J','A','S','O','N','D'][parseInt(m2)-1]+'</div></div>';
+});
+sh+='</div></div>';
+document.getElementById('vstats').innerHTML=sh;
+
+// Modal modification prix
+function sd(iso,p,v){
+  var mc=document.getElementById('mdc');
+  var d=new Date(iso),label=d.toLocaleDateString('fr-BE',{weekday:'long',day:'numeric',month:'long'});
+  if(v){
+    mc.innerHTML='<div style="font-size:9px;color:#666;text-transform:uppercase;margin-bottom:5px">Réservé</div>'
+      +'<div style="font-size:18px;font-weight:700;color:#e0e0ff;margin-bottom:8px">'+v+'</div>'
+      +'<div style="font-size:13px;color:#60a5fa;margin-bottom:16px">'+label+'</div>'
+      +'<button class="btn bs" onclick="cm()" style="width:100%">Fermer</button>';
+  } else {
+    mc.innerHTML='<div style="font-size:9px;color:#666;text-transform:uppercase;margin-bottom:5px">'+label+'</div>'
+      +'<div style="font-size:28px;font-weight:700;color:'+(tc(p).fg)+';margin-bottom:12px">'+(p?p+'€':'Non défini')+'</div>'
+      +'<input type="number" id="np" value="'+(p||'')+'" placeholder="Nouveau prix €" min="1" max="500">'
+      +'<div style="display:flex;gap:8px;margin-top:4px">'
+      +'<button class="btn bp" onclick="sp(''+iso+'')" style="flex:1">💾 Enregistrer</button>'
+      +'<button class="btn bs" onclick="cm()" style="flex:1">Annuler</button>'
+      +'</div>';
+  }
+  document.getElementById('mdbg').classList.remove('hid');
+}
+
+function sp(iso){
+  var np=parseInt(document.getElementById('np').value);
+  if(!np||np<1||np>500){alert('Prix invalide (1-500€)');return;}
+  var row=Math.round((new Date(iso)-new Date('2025-10-01'))/864e5)+2;
+  document.getElementById('mdc').innerHTML='<div style="color:#60a5fa;text-align:center;padding:20px">Enregistrement dans Google Sheets...</div>';
+  if(typeof google!=='undefined'&&google.script){
+    google.script.run
+      .withSuccessHandler(function(){cm();location.reload();})
+      .withFailureHandler(function(e){alert('Erreur: '+e);})
+      .updatePrice('D'+row,np);
+  } else {
+    alert('Non connecté au Sheet — utiliser la version Apps Script déployée.');
+    cm();
+  }
+}
+
+function cm(){document.getElementById('mdbg').classList.add('hid');}
+function sv(v,btn){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+  document.querySelectorAll('[id^=v]').forEach(function(el){el.classList.add('hid');});
+  document.getElementById('v'+v).classList.remove('hid');
+  btn.classList.add('on');
+}
+</script>
+</body>
+</html>
