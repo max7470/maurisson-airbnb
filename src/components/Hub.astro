@@ -10,6 +10,7 @@ import {
   SITES_URL,
   MANUELS_URL,
   MUSIC_COUNT,
+  fetchMusicCount,
   GREEN_COUNT,
   roomUrl,
   hubUrl,
@@ -25,7 +26,9 @@ const langHref = (l: string) => hubUrl(l as Lang);
 const formatCount = (n: number) => n.toLocaleString(lang === 'en' ? 'en-US' : 'fr-FR');
 const legalPath = lang === 'fr' ? '/legal' : `/${lang}/legal`;
 
-const musicBody = t('hub.music.body').replace('{count}', formatCount(MUSIC_COUNT));
+// Lu sur le Hub au build ; MUSIC_COUNT ne sert plus que de filet.
+const musicCount = await fetchMusicCount();
+const musicBody = t('hub.music.body').replace('{count}', formatCount(musicCount));
 const greenBody = t('hub.green.body').replace('{count}', String(GREEN_COUNT));
 
 const musicFeatures = [1, 2, 3, 4, 5, 6] as const;
@@ -89,7 +92,7 @@ const ideesFeatures = [1, 2, 3] as const;
             </svg>
           </span>
           <span class="bento-eyebrow">
-            {t('hub.music.eyebrow')} · <span class="wide-eyebrow-count">{formatCount(MUSIC_COUNT)} {t('hub.music.stat')}</span>
+            {t('hub.music.eyebrow')} · <span class="wide-eyebrow-count">{formatCount(musicCount)} {t('hub.music.stat')}</span>
           </span>
         </div>
         <h2 class="wide-title display">{t('hub.music.title')}</h2>

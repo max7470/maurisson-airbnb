@@ -18,7 +18,33 @@ export const SITES_URL = 'https://sites.maurisson.com';
 export const MANUELS_URL = 'https://manuels.maurisson.com';
 export const GITHUB_URL = 'https://github.com/max7470';
 
-export const MUSIC_COUNT = 2334;
+/** Repli : la valeur servie si l'API du Hub ne repond pas au build.
+ *  Tenue a jour a la main, mais elle n'est plus la source — voir fetchMusicCount. */
+export const MUSIC_COUNT = 2615;
+
+/** Le vrai compteur, lu sur le Hub lui-meme.
+ *
+ *  Ne d'un signalement d'Olivier Anthonioz (27/08/2026) : la vitrine affichait
+ *  2 334 quand le Hub en portait 2 615. Un nombre recopie a la main dans un site
+ *  statique perime en silence, au rythme ou le catalogue grossit.
+ *
+ *  Appele au BUILD (Astro `output: static`), donc zero requete pour le visiteur
+ *  et zero dependance a l'API au chargement de la page. Si le Hub ne repond pas
+ *  — deploiement en cours, coupure — on retombe sur MUSIC_COUNT et le site se
+ *  construit quand meme : une vitrine ne doit jamais echouer parce qu'une autre
+ *  application est en train de redemarrer. */
+export async function fetchMusicCount(): Promise<number> {
+  try {
+    const r = await fetch(`${MUSIC_HUB_URL}/api/v1/songs?limit=1`, {
+      signal: AbortSignal.timeout(6000),
+    });
+    if (!r.ok) return MUSIC_COUNT;
+    const data = (await r.json()) as { total?: number };
+    return typeof data.total === 'number' && data.total > 0 ? data.total : MUSIC_COUNT;
+  } catch {
+    return MUSIC_COUNT;
+  }
+}
 export const GREEN_COUNT = 47;
 
 export const ui = {
@@ -50,7 +76,7 @@ export const ui = {
     'hub.music.title': 'Music Hub',
     'hub.music.stat': 'morceaux',
     'hub.music.eyebrow': 'Le carnet de jeu',
-    'hub.music.body': 'Plus de 2 300 morceaux avec accords, paroles synchronisées et sections. Un vrai outil derrière : piano, guitare, ukulélé, harmonica. Transposition à la volée, gammes et accords diatoniques. Mon carnet de jeu vivant — pour explorer, apprendre et monter sur scène.',
+    'hub.music.body': 'Plus de {count} morceaux avec accords, paroles synchronisées et sections. Un vrai outil derrière : piano, guitare, ukulélé, harmonica. Transposition à la volée, gammes et accords diatoniques. Mon carnet de jeu vivant — pour explorer, apprendre et monter sur scène.',
     'hub.music.feat.1.title': 'Piano popover',
     'hub.music.feat.1.sub': 'Accords & gammes visualisés',
     'hub.music.feat.2.title': 'ChordPro',
@@ -196,7 +222,7 @@ export const ui = {
     'hub.music.title': 'Music Hub',
     'hub.music.stat': 'nummers',
     'hub.music.eyebrow': 'Het speelboek',
-    'hub.music.body': 'Meer dan 2 300 nummers met akkoorden, gesynchroniseerde teksten en secties. Een echte tool erachter: piano, gitaar, ukelele, mondharmonica. Transponering ter plekke, toonladders en diatonische akkoorden. Mijn levende speelboek — om te verkennen, te leren en op het podium te brengen.',
+    'hub.music.body': 'Meer dan {count} nummers met akkoorden, gesynchroniseerde teksten en secties. Een echte tool erachter: piano, gitaar, ukelele, mondharmonica. Transponering ter plekke, toonladders en diatonische akkoorden. Mijn levende speelboek — om te verkennen, te leren en op het podium te brengen.',
     'hub.music.feat.1.title': 'Piano popover',
     'hub.music.feat.1.sub': 'Akkoorden & toonladders',
     'hub.music.feat.2.title': 'ChordPro',
@@ -342,7 +368,7 @@ export const ui = {
     'hub.music.title': 'Music Hub',
     'hub.music.stat': 'tracks',
     'hub.music.eyebrow': 'The song book',
-    'hub.music.body': 'Over 2,300 songs with chords, synced lyrics and sections. A real tool behind it: piano, guitar, ukulele, harmonica. On-the-fly transposition, scales and diatonic chords. My living song book — to explore, learn and take on stage.',
+    'hub.music.body': 'Over {count} songs with chords, synced lyrics and sections. A real tool behind it: piano, guitar, ukulele, harmonica. On-the-fly transposition, scales and diatonic chords. My living song book — to explore, learn and take on stage.',
     'hub.music.feat.1.title': 'Piano popover',
     'hub.music.feat.1.sub': 'Every chord & scale, visualised',
     'hub.music.feat.2.title': 'ChordPro',
@@ -488,7 +514,7 @@ export const ui = {
     'hub.music.title': 'Music Hub',
     'hub.music.stat': 'Titel',
     'hub.music.eyebrow': 'Das Spielbuch',
-    'hub.music.body': 'Über 2 300 Lieder mit Akkorden, synchronisierten Texten und Abschnitten. Ein echtes Werkzeug dahinter: Klavier, Gitarre, Ukulele, Mundharmonika. Transposition im Vorbeigehen, Tonleitern und diatonische Akkorde. Mein lebendiges Spielbuch — zum Erkunden, Lernen und auf die Bühne bringen.',
+    'hub.music.body': 'Über {count} Lieder mit Akkorden, synchronisierten Texten und Abschnitten. Ein echtes Werkzeug dahinter: Klavier, Gitarre, Ukulele, Mundharmonika. Transposition im Vorbeigehen, Tonleitern und diatonische Akkorde. Mein lebendiges Spielbuch — zum Erkunden, Lernen und auf die Bühne bringen.',
     'hub.music.feat.1.title': 'Klavier-Popover',
     'hub.music.feat.1.sub': 'Akkorde & Tonleitern sichtbar',
     'hub.music.feat.2.title': 'ChordPro',
