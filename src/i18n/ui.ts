@@ -16,6 +16,7 @@ export const GREEN_HUB_URL = 'https://greenhub.maurisson.com';
 export const IDEES_URL = 'https://idees.maurisson.com';
 export const SITES_URL = 'https://sites.maurisson.com';
 export const MANUELS_URL = 'https://manuels.maurisson.com';
+export const PRINT_URL = 'https://print.maurisson.com';
 export const GITHUB_URL = 'https://github.com/max7470';
 
 /** Repli : la valeur servie si l'API du Hub ne repond pas au build.
@@ -188,6 +189,8 @@ export const ui = {
     'footer.made': 'Chez Maurisson · Herve, Belgique',
 
     'lang.switch': 'Langue',
+    'footer.projects': 'Projets',
+    'footer.print': 'Print · pièces ignifuges 3D',
 
     'meta.home.title': 'Maurisson — Le hub de Maxime, en Belgique',
     'meta.home.description': 'Maurisson, le hub de Maxime Maurisson : Music Hub, Green Hub, Productions, Idées — et une maison à Herve, entre Liège, Maastricht et Aix-la-Chapelle, où l\'on peut dormir.',
@@ -334,6 +337,8 @@ export const ui = {
     'footer.made': 'Chez Maurisson · Herve, België',
 
     'lang.switch': 'Taal',
+    'footer.projects': 'Projecten',
+    'footer.print': 'Print · vlamdovende 3D-onderdelen',
 
     'meta.home.title': 'Maurisson — De hub van Maxime, in België',
     'meta.home.description': 'Maurisson, de hub van Maxime Maurisson: Music Hub, Green Hub, Producties, Ideeën — en een huis in Herve, tussen Luik, Maastricht en Aken, waar je kunt overnachten.',
@@ -480,6 +485,8 @@ export const ui = {
     'footer.made': 'Chez Maurisson · Herve, Belgium',
 
     'lang.switch': 'Language',
+    'footer.projects': 'Projects',
+    'footer.print': 'Print · flame-retardant 3D parts',
 
     'meta.home.title': 'Maurisson — Maxime\'s hub, in Belgium',
     'meta.home.description': 'Maurisson, Maxime Maurisson\'s hub: Music Hub, Green Hub, Productions, Ideas — and a house in Herve, between Liège, Maastricht and Aachen, where you can stay the night.',
@@ -626,6 +633,8 @@ export const ui = {
     'footer.made': 'Chez Maurisson · Herve, Belgien',
 
     'lang.switch': 'Sprache',
+    'footer.projects': 'Projekte',
+    'footer.print': 'Print · flammhemmende 3D-Teile',
 
     'meta.home.title': 'Maurisson — Maximes Hub, in Belgien',
     'meta.home.description': 'Maurisson, Maxime Maurissons Hub: Music Hub, Green Hub, Produktionen, Ideen — und ein Haus in Herve, zwischen Lüttich, Maastricht und Aachen, in dem man übernachten kann.',

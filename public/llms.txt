@@ -14,7 +14,8 @@
 - https://idees.maurisson.com/ — capture et organisation d'idées
 - https://manuels.maurisson.com/ — manuels et guides pratiques
 - https://sites.maurisson.com/ — sites et expériences web
-- https://jesus.maurisson.com/ — projet éditorial
+- https://jesus.maurisson.com/ — projet éditorial (pastiche d'exégèse : versets authentiques, agencement et commentaire de l'auteur)
+- https://print.maurisson.com/ — dossier projet : pièces ignifuges imprimées en 3D pour packs lithium DIY
 
 ## Accès
 

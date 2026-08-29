@@ -1,5 +1,5 @@
 ---
-import { useTranslations, type Lang, AIRBNB_URL, languages } from '../i18n/ui';
+import { useTranslations, type Lang, AIRBNB_URL, PRINT_URL, languages } from '../i18n/ui';
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
@@ -29,6 +29,11 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
       </div>
 
       <div class="foot-col">
+        <h4>{t('footer.projects')}</h4>
+        <a href={PRINT_URL}>{t('footer.print')}</a>
+      </div>
+
+      <div class="foot-col">
         <h4>{t('lang.switch')}</h4>
         <div class="foot-langs">
           {Object.entries(languages).map(([code, label]) => (
@@ -53,7 +58,7 @@ const langHref = (l: string) => l === 'fr' ? '/' : '/' + l + '/';
   }
   .foot-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
     gap: clamp(2rem, 4vw, 4rem);
     margin-bottom: clamp(3rem, 5vw, 4rem);
   }
